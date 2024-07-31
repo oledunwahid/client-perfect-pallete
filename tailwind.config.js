@@ -10,6 +10,9 @@ export default {
         beige: "#F5EFEB",
         white: "#FFFFFF",
       },
+      fontFamily: {
+        playfair: ["Playfair Display", "serif"],
+      },
     },
   },
   plugins: [],

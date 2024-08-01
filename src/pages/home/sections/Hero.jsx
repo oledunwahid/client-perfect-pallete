@@ -15,6 +15,7 @@ function Hero() {
           analysis. Find the perfect shades that suit your unique style and
           complexion.
         </p>
+
         <div className="mb-8">
           <img
             src={heroImage}

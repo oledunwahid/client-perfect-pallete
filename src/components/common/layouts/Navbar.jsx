@@ -74,10 +74,13 @@ const NavItems = ({ mobile }) => {
           <span>Cart</span>
         </a>
       )}
-      <a href="#" className={baseClasses}>
-        <FaMapMarkerAlt className={mobile ? "mr-3 inline" : "mr-2"} />
-        <span>Track Order</span>
-      </a>
+      {!mobile && <TrackOrderModal />}
+      {mobile && (
+        <a href="#" className={baseClasses}>
+          <FaMapMarkerAlt className="mr-3 inline" />
+          <span>Track Order</span>
+        </a>
+      )}
       <button
         onClick={() => navigate("/signin")}
         className={`${baseClasses} ${

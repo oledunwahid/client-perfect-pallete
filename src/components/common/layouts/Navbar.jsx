@@ -8,9 +8,10 @@ import {
   FaBars,
   FaTimes,
 } from "react-icons/fa";
+import CartModal from "../../modals/CartModal";
+import TrackOrderModal from "../../modals/TrackOrderModal";
 
 const Navbar = () => {
-  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -66,10 +67,13 @@ const NavItems = ({ mobile }) => {
 
   return (
     <>
-      <a href="#" className={baseClasses}>
-        <FaShoppingBag className={mobile ? "mr-3 inline" : "mr-2"} />
-        <span>Cart</span>
-      </a>
+      {!mobile && <CartModal />}
+      {mobile && (
+        <a href="#" className={baseClasses}>
+          <FaShoppingBag className="mr-3 inline" />
+          <span>Cart</span>
+        </a>
+      )}
       <a href="#" className={baseClasses}>
         <FaMapMarkerAlt className={mobile ? "mr-3 inline" : "mr-2"} />
         <span>Track Order</span>

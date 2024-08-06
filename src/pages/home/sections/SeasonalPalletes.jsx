@@ -1,6 +1,7 @@
 // src/sections/SeasonalPalettes.jsx
 
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import ServiceCard from "../../../components/service/ServiceCard";
 
 // Asumsikan Anda memiliki gambar-gambar ini di folder assets
@@ -39,6 +40,8 @@ const palettes = [
 ];
 
 const SeasonalPalettes = () => {
+  const navigate = useNavigate();
+
   return (
     <section className="bg-beige py-16">
       <div className="container mx-auto px-4">
@@ -63,6 +66,12 @@ const SeasonalPalettes = () => {
             Enhance your online shopping experience with personalized color
             consultations and cosmetics.
           </p>
+          <button
+            onClick={() => navigate("/products")}
+            className="bg-navy text-white px-6 py-3 rounded-md hover:bg-teal transition duration-300"
+          >
+            Explore Products
+          </button>
         </div>
       </div>
     </section>

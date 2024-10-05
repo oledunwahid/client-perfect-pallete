@@ -68,7 +68,7 @@ const EditModal = ({ isOpen, onClose, onSubmit, initialData, fields }) => {
                 >
                   {field.options.map((option) => (
                     <option key={option.value} value={option.value}>
-                      {option.label}
+                      {option.label ? option.label : option.value}
                     </option>
                   ))}
                 </select>

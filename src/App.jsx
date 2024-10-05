@@ -11,9 +11,31 @@ import UsersAdmin from "./pages/admin/users/UsersAdmin";
 import PackagesAdmin from "./pages/admin/packages/PackagesAdmin";
 import OrdersAdmin from "./pages/admin/orders/OrdersAdmin";
 import PackageDetail from "./pages/admin/packages/PackageDetail";
+import { useEffect } from "react";
+import { fetchUserDetail } from "./hooks/useFetchUserDetail";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "./features/users/user";
 
 function App() {
   const location = useLocation();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.User);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token && user.length === 0) {
+      const fetchUser = async () => {
+        try {
+          const userData = await fetchUserDetail(token);
+          dispatch(setUser(userData.data));
+        } catch (error) {
+          console.error("Error fetching user data:", error.message);
+        }
+      };
+
+      fetchUser();
+    }
+  }, [dispatch, user]);
   return (
     <>
       {!location.pathname.startsWith("/admin") && (

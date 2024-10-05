@@ -1,4 +1,8 @@
+import { useLocation } from "react-router-dom";
+
 const PackageCard = ({ packageData, onEdit, onDelete }) => {
+  const location = useLocation();
+
   return (
     <div className="border rounded-lg shadow-md p-4 bg-white hover:shadow-lg transition-shadow duration-200">
       <img
@@ -10,20 +14,22 @@ const PackageCard = ({ packageData, onEdit, onDelete }) => {
       <p className="text-gray-600 mb-2">{packageData.description}</p>
       <p className="font-bold text-lg mb-2">Price: ${packageData.price}</p>
       <p className="text-gray-500 mb-4">Stock: {packageData.stock}</p>
-      <div className="flex justify-between">
-        <button
-          onClick={onEdit}
-          className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600 transition"
-        >
-          Edit
-        </button>
-        <button
-          onClick={onDelete}
-          className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition"
-        >
-          Delete
-        </button>
-      </div>
+      {location.pathname !== "/admin/dashboard" && (
+        <div className="flex justify-between">
+          <button
+            onClick={onEdit}
+            className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600 transition"
+          >
+            Edit
+          </button>
+          <button
+            onClick={onDelete}
+            className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition"
+          >
+            Delete
+          </button>
+        </div>
+      )}
     </div>
   );
 };

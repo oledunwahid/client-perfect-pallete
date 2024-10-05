@@ -229,6 +229,12 @@ const PackageDetail = () => {
                   type: "text",
                   required: true,
                 },
+                {
+                  name: "image",
+                  label: "Image URL",
+                  type: "text",
+                  required: true,
+                },
                 { name: "price", label: "Price", type: "text", required: true },
                 {
                   name: "stock",

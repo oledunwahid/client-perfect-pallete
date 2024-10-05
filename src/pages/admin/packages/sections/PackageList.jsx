@@ -6,7 +6,7 @@ import axiosInstance from "../../../../utils/axiosInstance";
 import AddModal from "../../../../components/common/cards/AddModal";
 import { toast } from "react-toastify";
 import PackageCard from "./PackageCard";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const PackageList = () => {
   const { packages, loading, error, refetch } = useFetchPackages();
@@ -15,6 +15,7 @@ const PackageList = () => {
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleAddPackage = async (newPackage) => {
     try {
@@ -79,14 +80,16 @@ const PackageList = () => {
   }
 
   return (
-    <div className="px-4">
+    <div>
       <h1 className="text-2xl font-bold mb-4">Package List</h1>
-      <button
-        onClick={() => setAddModalOpen(true)}
-        className="mb-4 bg-beige text-black px-4 py-2 rounded-md"
-      >
-        Add Package
-      </button>
+      {location.pathname !== "/admin/dashboard" && (
+        <button
+          onClick={() => setAddModalOpen(true)}
+          className="mb-4 bg-beige text-black px-4 py-2 rounded-md"
+        >
+          Add Package
+        </button>
+      )}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {loading ? (
           <p>Loading...</p>

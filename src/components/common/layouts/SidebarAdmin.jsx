@@ -13,8 +13,8 @@ const SidebarAdmin = ({ isOpen, onClose }) => {
   const pages = [
     { path: "/admin/dashboard", icon: DashboardIcon, title: "Dashboard" },
     { path: "/admin/users", icon: UsersIcon, title: "Users" },
-    { path: "/admin/packages", icon: PackagesIcon, title: "Packages" }, // Updated icon
-    { path: "/admin/orders", icon: OrdersIcon, title: "Orders" }, // Updated icon
+    { path: "/admin/packages", icon: PackagesIcon, title: "Packages" },
+    { path: "/admin/orders", icon: OrdersIcon, title: "Orders" },
   ];
 
   function DashboardIcon({ activePage }) {

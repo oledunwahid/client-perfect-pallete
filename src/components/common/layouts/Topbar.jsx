@@ -20,7 +20,7 @@ const Topbar = ({ toggleSidebar }) => {
   const handleSignOut = () => {
     localStorage.removeItem("token");
     toast.success("Logout success");
-    setIsDropdownOpen(false);
+    // setIsDropdownOpen(false);
     if (location.pathname.includes("admin")) {
       navigate("/admin/login");
     } else {

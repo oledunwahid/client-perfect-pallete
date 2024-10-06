@@ -11,13 +11,19 @@ import {
   FaLock,
   FaEye,
   FaEyeSlash,
+  FaUserCircle,
+  FaShoppingCart,
 } from "react-icons/fa";
 import CartModal from "../../modals/CartModal";
 import TrackOrderModal from "../../modals/TrackOrderModal";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const userData = useSelector((state) => state.user.User);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -27,11 +33,23 @@ const Navbar = () => {
     setIsLoginModalOpen(!isLoginModalOpen);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    toast.success("Logout success");
+    // setIsDropdownOpen(false);
+
+    navigate("/signin");
+  };
+
+  const handleLogoClick = () => {
+    navigate("/");
+  };
+
   return (
     <nav className="bg-white shadow-sm fixed top-0 left-0 right-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0" onClick={handleLogoClick}>
             <div className="text-2xl font-bold font-playfair">
               PERFECT <br />
               PALETTE
@@ -39,7 +57,11 @@ const Navbar = () => {
           </div>
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
-              <NavItems toggleLoginModal={toggleLoginModal} />
+              <NavItems
+                toggleLoginModal={toggleLoginModal}
+                userData={userData}
+                handleLogout={handleLogout}
+              />
             </div>
           </div>
           <div className="md:hidden">
@@ -72,7 +94,7 @@ const Navbar = () => {
   );
 };
 
-const NavItems = ({ mobile, toggleLoginModal }) => {
+const NavItems = ({ mobile, toggleLoginModal, handleLogout, userData }) => {
   const navigate = useNavigate();
   const baseClasses = mobile
     ? "text-navy hover:bg-navy hover:text-white block px-3 py-2 rounded-md text-base font-medium"
@@ -94,28 +116,51 @@ const NavItems = ({ mobile, toggleLoginModal }) => {
           <span>Track Order</span>
         </a>
       )}
-      <button
-        onClick={mobile ? () => navigate("/signin") : toggleLoginModal}
-        className={`${baseClasses} ${
-          mobile
-            ? "w-full text-left"
-            : "bg-skyblue text-navy px-4 py-2 rounded-md hover:bg-teal hover:text-white"
-        }`}
-      >
-        <FaUser className={mobile ? "mr-3 inline" : "mr-2"} />
-        <span>Sign in</span>
-      </button>
-      <button
-        onClick={() => navigate("/register")}
-        className={`${baseClasses} ${
-          mobile
-            ? "w-full text-left"
-            : "bg-navy text-white px-4 py-2 rounded-md hover:bg-teal"
-        }`}
-      >
-        <FaUserPlus className={mobile ? "mr-3 inline" : "mr-2"} />
-        <span>Register</span>
-      </button>
+
+      <a onClick={() => navigate("/orders")} className={baseClasses}>
+        <FaShoppingCart className="mr-3 inline " />
+        <span className="cursor-pointer">My Order</span>
+      </a>
+
+      {!Array.isArray(userData) ? (
+        <button
+          onClick={handleLogout}
+          className={`${baseClasses} ${
+            mobile
+              ? "w-full text-left"
+              : "bg-navy text-white px-4 py-2 rounded-md hover:bg-teal"
+          }`}
+        >
+          <FaUserCircle className={mobile ? "mr-3 inline" : "mr-2"} />
+          <span>Logout</span>
+        </button>
+      ) : (
+        <>
+          <button
+            // onClick={mobile ? () => navigate("/signin") : toggleLoginModal}
+            onClick={() => navigate("/signin")}
+            className={`${baseClasses} ${
+              mobile
+                ? "w-full text-left"
+                : "bg-skyblue text-navy px-4 py-2 rounded-md hover:bg-teal hover:text-white"
+            }`}
+          >
+            <FaUser className={mobile ? "mr-3 inline" : "mr-2"} />
+            <span>Sign in</span>
+          </button>
+          <button
+            onClick={() => navigate("/signup")}
+            className={`${baseClasses} ${
+              mobile
+                ? "w-full text-left"
+                : "bg-navy text-white px-4 py-2 rounded-md hover:bg-teal"
+            }`}
+          >
+            <FaUserPlus className={mobile ? "mr-3 inline" : "mr-2"} />
+            <span>Register</span>
+          </button>
+        </>
+      )}
     </>
   );
 };

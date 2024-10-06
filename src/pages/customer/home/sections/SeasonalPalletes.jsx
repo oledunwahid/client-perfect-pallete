@@ -2,13 +2,13 @@
 
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import ServiceCard from "../../../components/service/ServiceCard";
+import ServiceCard from "../../../../components/service/ServiceCard";
 
 // Asumsikan Anda memiliki gambar-gambar ini di folder assets
-import autumnImage from "../../../assets/background/autumn-palette.png";
-import springImage from "../../../assets/background/spring-palette.png";
-import summerImage from "../../../assets/background/summer-palette.png";
-import winterImage from "../../../assets/background/winter-palette.png";
+import autumnImage from "../../../../assets/background/autumn-palette.png";
+import springImage from "../../../../assets/background/spring-palette.png";
+import summerImage from "../../../../assets/background/summer-palette.png";
+import winterImage from "../../../../assets/background/winter-palette.png";
 
 const palettes = [
   {
@@ -67,7 +67,7 @@ const SeasonalPalettes = () => {
             consultations and cosmetics.
           </p>
           <button
-            onClick={() => navigate("/products")}
+            onClick={() => navigate("/packages")}
             className="bg-navy text-white px-6 py-3 rounded-md hover:bg-teal transition duration-300"
           >
             Explore Products

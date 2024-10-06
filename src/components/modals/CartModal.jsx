@@ -1,9 +1,14 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FaShoppingCart, FaTimes } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const CartModal = () => {
   const [isOpen, setIsOpen] = useState(false);
   const modalRef = useRef(null);
+  const navigate = useNavigate();
+
+  const cartItems = useSelector((state) => state.cart.items);
 
   const toggleModal = () => setIsOpen(!isOpen);
 
@@ -17,12 +22,6 @@ const CartModal = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
-  // Contoh data cart, ganti dengan data sebenarnya dari state atau context
-  const cartItems = [
-    { id: 1, name: "Product 1", price: 10.99, quantity: 2 },
-    { id: 2, name: "Product 2", price: 15.99, quantity: 1 },
-  ];
 
   return (
     <div className="relative" ref={modalRef}>
@@ -52,13 +51,13 @@ const CartModal = () => {
                   {cartItems.map((item) => (
                     <li key={item.id} className="py-3 flex justify-between">
                       <div>
-                        <p className="font-medium">{item.name}</p>
+                        <p className="font-medium">{item.title}</p>
                         <p className="text-sm text-gray-500">
-                          {item.quantity} x ${item.price.toFixed(2)}
+                          {item.quantity} x ${Math.floor(item.price).toFixed(2)}{" "}
                         </p>
                       </div>
                       <p className="font-medium">
-                        ${(item.quantity * item.price).toFixed(2)}
+                        ${Math.floor(item.quantity * item.price).toFixed(2)}{" "}
                       </p>
                     </li>
                   ))}
@@ -76,7 +75,10 @@ const CartModal = () => {
                         .toFixed(2)}
                     </span>
                   </div>
-                  <button className="mt-4 w-full bg-navy text-white py-2 px-4 rounded-md hover:bg-teal transition duration-300">
+                  <button
+                    onClick={() => navigate("/checkout")}
+                    className="mt-4 w-full bg-navy text-white py-2 px-4 rounded-md hover:bg-teal transition duration-300"
+                  >
                     Checkout
                   </button>
                 </div>

@@ -1,8 +1,8 @@
 // src/sections/OurServices.jsx
 
 import React from "react";
-import ServiceCard from "../../../components/service/ServiceCard";
-import expertConsultationImage from "../../../assets/background/expert-consul.png";
+import ServiceCard from "../../../../components/service/ServiceCard";
+import expertConsultationImage from "../../../../assets/background/expert-consul.png";
 
 const OurServices = () => {
   return (

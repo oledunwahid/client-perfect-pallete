@@ -63,6 +63,8 @@ const OrderList = () => {
     { field: "totalPrice", headerName: "Total Price", width: 150 },
     { field: "status", headerName: "Status", width: 150 },
     { field: "paymentMethod", headerName: "Payment Method", width: 180 },
+    { field: "shippingName", headerName: "Shipping Name", width: 180 },
+    { field: "shippingAddress", headerName: "Shipping Address", width: 180 },
     {
       field: "details",
       headerName: "Details",

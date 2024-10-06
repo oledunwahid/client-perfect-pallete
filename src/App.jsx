@@ -1,9 +1,8 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./components/common/layouts/Navbar";
 import Footer from "./components/common/layouts/Footer";
-import Home from "./pages/home/Home";
-import Login from "./pages/auth/Login";
-import Product from "./pages/products/Home";
+import Home from "./pages/customer/home/Home";
+import Login from "./pages/customer/auth/Login";
 import LoginAdmin from "./pages/admin/auth/LoginAdmin";
 import DashboardAdmin from "./pages/admin/dashboard/DashboardAdmin";
 import PrivateRoute from "./utils/PrivateRoute";
@@ -15,6 +14,11 @@ import { useEffect } from "react";
 import { fetchUserDetail } from "./hooks/useFetchUserDetail";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "./features/users/user";
+import RegisterCustomer from "./pages/customer/auth/RegisterCustomer";
+import LoginCustomer from "./pages/customer/auth/LoginCustomer";
+import PackagesCustomer from "./pages/customer/packages/PackagesCustomer";
+import CheckoutCustomer from "./pages/customer/orders/CheckoutCustomer";
+import OrdersInformation from "./pages/customer/orders/OrdersInformation";
 
 function App() {
   const location = useLocation();
@@ -41,13 +45,16 @@ function App() {
       {!location.pathname.startsWith("/admin") && (
         <>
           <Navbar />
-          <Footer />
         </>
       )}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/products" element={<Product />} />
-        <Route path="/signin" element={<Login />} />
+        <Route path="/packages" element={<PackagesCustomer />} />
+        <Route path="/signin-test" element={<Login />} />
+        <Route path="/signin" element={<LoginCustomer />} />
+        <Route path="/signup" element={<RegisterCustomer />} />
+        <Route path="/checkout" element={<CheckoutCustomer />} />
+        <Route path="/orders" element={<OrdersInformation />} />
         <Route path="/admin/login" element={<LoginAdmin />} />
 
         <Route
@@ -91,6 +98,7 @@ function App() {
           }
         />
       </Routes>
+      {!location.pathname.startsWith("/admin") && <Footer />}
     </>
   );
 }

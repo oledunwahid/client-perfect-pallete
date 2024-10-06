@@ -1,5 +1,4 @@
-import React from "react";
-import heroImage from "../../../assets/background/photo-banner.jpg";
+import heroImage from "../../../../assets/background/photo-banner.jpg";
 
 function Hero() {
   return (

@@ -89,7 +89,7 @@ const CheckoutCustomer = () => {
                 ? "opacity-50 cursor-not-allowed"
                 : ""
             }`}
-            disabled={activeTab === 1 && !isOrderCreated} // Disable Next if order isn't created
+            disabled={activeTab === 1 && !isOrderCreated}
           >
             Next
           </button>

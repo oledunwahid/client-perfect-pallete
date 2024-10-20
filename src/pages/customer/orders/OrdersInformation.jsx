@@ -35,44 +35,46 @@ const OrdersInformation = () => {
   };
 
   return (
-    <div className="py-20 px-4 max-w-3xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6 text-center">
-        Orders Information
-      </h1>
-      <div className="flex justify-center space-x-4 mb-6">
-        <button
-          className={`py-2 px-4 rounded-md transition duration-300 transform ${
-            selectedStatus === "new order"
-              ? "bg-blue-500 text-white shadow-md"
-              : "bg-gray-200 hover:bg-gray-300"
-          }`}
-          onClick={() => handleTabChange("new order")}
-        >
-          New Orders
-        </button>
-        <button
-          className={`py-2 px-4 rounded-md transition duration-300 transform ${
-            selectedStatus === "shipped"
-              ? "bg-blue-500 text-white shadow-md"
-              : "bg-gray-200 hover:bg-gray-300"
-          }`}
-          onClick={() => handleTabChange("shipped")}
-        >
-          Shipped
-        </button>
-        <button
-          className={`py-2 px-4 rounded-md transition duration-300 transform ${
-            selectedStatus === "arrived"
-              ? "bg-blue-500 text-white shadow-md"
-              : "bg-gray-200 hover:bg-gray-300"
-          }`}
-          onClick={() => handleTabChange("arrived")}
-        >
-          Arrived
-        </button>
+    <section className="bg-beige">
+      <div className="py-20 px-4 max-w-3xl mx-auto">
+        <h1 className="font-playfair text-3xl font-bold mb-6 text-center">
+          Orders Information
+        </h1>
+        <div className="font-playfair flex justify-center space-x-4 mb-6">
+          <button
+            className={`py-2 px-4 rounded-md transition duration-300 transform ${
+              selectedStatus === "new order"
+                ? "bg-teal text-white shadow-md"
+                : "bg-gray-200 hover:bg-gray-300"
+            }`}
+            onClick={() => handleTabChange("new order")}
+          >
+            New Orders
+          </button>
+          <button
+            className={`py-2 px-4 rounded-md transition duration-300 transform ${
+              selectedStatus === "shipped"
+                ? "bg-teal text-white shadow-md"
+                : "bg-gray-200 hover:bg-gray-300"
+            }`}
+            onClick={() => handleTabChange("shipped")}
+          >
+            Shipped
+          </button>
+          <button
+            className={`py-2 px-4 rounded-md transition duration-300 transform ${
+              selectedStatus === "arrived"
+                ? "bg-teal text-white shadow-md"
+                : "bg-gray-200 hover:bg-gray-300"
+            }`}
+            onClick={() => handleTabChange("arrived")}
+          >
+            Arrived
+          </button>
+        </div>
+        <div className="orders-list">{renderContent()}</div>
       </div>
-      <div className="orders-list">{renderContent()}</div>
-    </div>
+    </section>
   );
 };
 

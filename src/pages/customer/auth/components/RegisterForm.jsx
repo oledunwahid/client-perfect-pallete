@@ -72,7 +72,7 @@ const RegisterForm = ({
       </div>
       <button
         type="submit"
-        className="w-full text-black bg-beige focus:ring-4 focus:outline-none focus:ring-brand-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+        className="w-full text-white bg-teal focus:ring-4 focus:outline-none focus:ring-brand-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
       >
         Register
       </button>

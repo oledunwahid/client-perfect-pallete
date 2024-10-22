@@ -1,101 +1,93 @@
-import { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { useSelector } from "react-redux";
 import OrderDetails from "./sections/OrderDetails";
 import PaymentMethod from "./sections/PaymentMethod";
 import ConfirmOrder from "./sections/ConfirmOrder";
 
+const CheckoutTab = ({ title, isActive }) => (
+  <button
+    className={`py-2 px-4 transition-colors duration-300 ${
+      isActive ? "bg-teal text-white" : "bg-gray-200 text-gray-700"
+    }`}
+    disabled
+  >
+    {title}
+  </button>
+);
+
 const CheckoutCustomer = () => {
   const cartItems = useSelector((state) => state.cart.items);
-  const totalAmount = cartItems.reduce(
-    (total, item) => total + item.quantity * item.price,
-    0
+  const [activeTab, setActiveTab] = useState(0);
+  const [isOrderCreated, setIsOrderCreated] = useState(false);
+
+  const totalAmount = useMemo(
+    () =>
+      cartItems.reduce((total, item) => total + item.quantity * item.price, 0),
+    [cartItems]
   );
 
-  const [activeTab, setActiveTab] = useState(0);
-  const [isOrderCreated, setIsOrderCreated] = useState(false); // Track if order has been created
-
-  const handleNext = () => {
-    if (activeTab === 1 && !isOrderCreated) {
-      return;
-    }
-    setActiveTab((prevTab) => prevTab + 1);
+  const handleNavigation = (direction) => {
+    setActiveTab((prevTab) => prevTab + direction);
   };
 
-  const handleBack = () => {
-    setActiveTab((prevTab) => prevTab - 1);
-  };
+  const tabs = [
+    { title: "Detail Order", component: OrderDetails },
+    { title: "Payment Method & Shipping Info", component: PaymentMethod },
+    { title: "Confirm Order", component: ConfirmOrder },
+  ];
+
+  const ActiveComponent = tabs[activeTab].component;
 
   return (
-    <div className="container mx-auto px-4 py-20">
-      <h1 className="text-3xl font-bold mb-4">Checkout</h1>
+    <section className="bg-beige font-playfair min-h-screen">
+      <div className="container mx-auto px-4 py-20">
+        <h1 className="text-3xl font-bold mb-8 text-center">Checkout</h1>
 
-      <div className="flex mb-4">
-        <button
-          className={`py-2 px-4 ${
-            activeTab === 0 ? "bg-teal text-white" : "bg-gray-200"
-          }`}
-          disabled
-        >
-          Detail Order
-        </button>
+        <div className="flex mb-8 justify-center">
+          {tabs.map((tab, index) => (
+            <CheckoutTab
+              key={index}
+              title={tab.title}
+              isActive={activeTab === index}
+            />
+          ))}
+        </div>
 
-        <button
-          className={`py-2 px-4 ${
-            activeTab === 1 ? "bg-teal text-white" : "bg-gray-200"
-          }`}
-          disabled
-        >
-          Payment Method & Shipping Info
-        </button>
+        <div className="bg-white p-6 rounded-lg shadow-md">
+          <ActiveComponent
+            cartItems={cartItems}
+            totalAmount={totalAmount}
+            setActiveTab={setActiveTab}
+            setIsOrderCreated={setIsOrderCreated}
+          />
+        </div>
 
-        <button
-          className={`py-2 px-4 ${
-            activeTab === 2 ? "bg-teal text-white" : "bg-gray-200"
-          }`}
-          disabled
-        >
-          Confirm Order
-        </button>
+        <div className="flex justify-between mt-8">
+          {activeTab > 0 && (
+            <button
+              onClick={() => handleNavigation(-1)}
+              className="bg-gray-300 text-black py-2 px-6 rounded-md hover:bg-gray-400 transition duration-300"
+            >
+              Back
+            </button>
+          )}
+
+          {activeTab < 2 && (
+            <button
+              onClick={() => handleNavigation(1)}
+              className={`bg-navy text-white py-2 px-6 rounded-md hover:bg-teal transition duration-300 ${
+                activeTab === 1 && !isOrderCreated
+                  ? "opacity-50 cursor-not-allowed"
+                  : ""
+              }`}
+              disabled={activeTab === 1 && !isOrderCreated}
+            >
+              Next
+            </button>
+          )}
+        </div>
       </div>
-
-      {activeTab === 0 && (
-        <OrderDetails cartItems={cartItems} totalAmount={totalAmount} />
-      )}
-
-      {activeTab === 1 && (
-        <PaymentMethod
-          setActiveTab={setActiveTab}
-          setIsOrderCreated={setIsOrderCreated}
-        />
-      )}
-
-      {activeTab === 2 && <ConfirmOrder />}
-
-      <div className="flex justify-between mt-8">
-        {activeTab > 0 && (
-          <button
-            onClick={handleBack}
-            className="bg-gray-300 text-black py-2 px-4 rounded-md"
-          >
-            Back
-          </button>
-        )}
-
-        {activeTab < 2 && (
-          <button
-            onClick={handleNext}
-            className={`bg-navy text-white py-2 px-4 rounded-md hover:bg-teal transition duration-300 ${
-              activeTab === 1 && !isOrderCreated
-                ? "opacity-50 cursor-not-allowed"
-                : ""
-            }`}
-            disabled={activeTab === 1 && !isOrderCreated}
-          >
-            Next
-          </button>
-        )}
-      </div>
-    </div>
+    </section>
   );
 };
 

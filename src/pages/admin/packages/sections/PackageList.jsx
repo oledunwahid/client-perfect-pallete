@@ -80,12 +80,12 @@ const PackageList = () => {
   }
 
   return (
-    <div>
+    <div className="font-playfair">
       <h1 className="text-2xl font-bold mb-4">Package List</h1>
       {location.pathname !== "/admin/dashboard" && (
         <button
           onClick={() => setAddModalOpen(true)}
-          className="mb-4 bg-beige text-black px-4 py-2 rounded-md"
+          className="mb-4 bg-teal text-white px-4 py-2 rounded-md"
         >
           Add Package
         </button>

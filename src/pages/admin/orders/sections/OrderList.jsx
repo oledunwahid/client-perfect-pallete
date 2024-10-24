@@ -46,7 +46,6 @@ const OrderList = () => {
   const handleStatusChange = (event) => {
     setSelectedStatus(event.target.value);
     refetch();
-    s;
   };
 
   const columns = [
@@ -70,12 +69,14 @@ const OrderList = () => {
       headerName: "Details",
       width: 150,
       renderCell: (params) => (
-        <button
-          onClick={() => handleShowDetail(params.row)}
-          className="bg-blue-500 text-white px-2 py-1 rounded-md"
-        >
-          View Details
-        </button>
+        <div className="flex justify-center w-full">
+          <button
+            onClick={() => handleShowDetail(params.row)}
+            className="bg-teal hover:bg-teal-600 text-white font-semibold text-sm px-2 py-1 lg:mt-5 mt-5 rounded-md transition duration-300 ease-in-out"
+          >
+            View Details
+          </button>
+        </div>
       ),
     },
   ];
@@ -85,7 +86,7 @@ const OrderList = () => {
   }
 
   return (
-    <div>
+    <div className="font-playfair">
       <h1 className="text-2xl font-bold mb-4">Order List</h1>
 
       <div className="mb-4">
@@ -96,7 +97,7 @@ const OrderList = () => {
           id="statusFilter"
           value={selectedStatus}
           onChange={handleStatusChange}
-          className="p-2 border border-gray-300 rounded-md"
+          className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
         >
           <option value="">All</option>
           <option value="new order">New Order</option>

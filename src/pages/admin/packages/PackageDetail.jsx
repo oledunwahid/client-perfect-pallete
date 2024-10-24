@@ -108,14 +108,14 @@ const PackageDetail = () => {
               message="Welcome to the Packages Page! Here you can manage all your packages efficiently. View package details, add new packages, update existing ones, and monitor inventory levels. Explore the various products included in each package and ensure everything is up-to-date. If you have any questions or need assistance, our support team is here to help!"
             />
           </div>
-          <div className="px-4 ">
+          <div className="px-4 font-playfair">
             <h1 className="text-2xl font-bold mb-4">{packageData.title}</h1>
             <p>{packageData.description}</p>
             <p>Price: {packageData.price}</p>
             <p>Stock: {packageData.stock}</p>
             <button
               onClick={() => setEditPackageModalOpen(true)}
-              className="mb-4 mr-4 mt-2 bg-blue-500 text-white px-4 py-2 rounded-md"
+              className="mb-4 mr-4 mt-2 bg-teal text-white px-4 py-2 rounded-md"
             >
               Edit Package
             </button>
